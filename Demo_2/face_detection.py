@@ -24,7 +24,7 @@ def face_detection(filename, required_size=(160, 160)):
 
   column, row, width, height = detected_faces[0]
   print(column)
-  print(row)
+  print(row) 
   print(width)
   print(height)
   # disable rectangle
