@@ -3,6 +3,9 @@ from numpy import asarray
 from PIL import Image
 from os import listdir
 from matplotlib import pyplot
+from lbphAlgorithm import getFeatureVector
+import pandas as pd
+import numpy
 
 def face_detection(filename, required_size=(160, 160)):
   # Read image from your local file system
@@ -16,6 +19,7 @@ def face_detection(filename, required_size=(160, 160)):
 
   detected_faces = face_cascade.detectMultiScale(grayscale_image)
   # .....
+  # convrt BGR to RGB
   original_image = cv.cvtColor(original_image, cv.COLOR_BGR2RGB)
   pixels = asarray(original_image)
 
@@ -53,9 +57,10 @@ def face_detection(filename, required_size=(160, 160)):
   print(face_array)
   return face_array
 
-def detectFace(folder):
+def fetListFeatureVectors(folder):
   folder = 'data/Harry/'
   i = 1
+  features = list()
   # enumerate files
   for filename in listdir(folder):
     # path
@@ -66,8 +71,18 @@ def detectFace(folder):
     # plot
     pyplot.subplot(2, 7, i)
     pyplot.axis('off')
+    # khi chuyển sang bằng hàm asarray, ảnh sẽ có dạng BGR -> phải chuyển về RGB
     pyplot.imshow(face)
+    tmp_image = cv.cvtColor(face, cv.COLOR_BGR2RGB)
+    featureVct = getFeatureVector(tmp_image)
+    featureVct = numpy.append(featureVct, path)
+    features.append(featureVct)
+    cv.imshow("harry", tmp_image)
     i += 1
+  saveFeatureInCSV(features, 'data/csvfiles/data_2.csv')
   pyplot.show()
 
-detectFace("")
+def saveFeatureInCSV(data, dataFilePath):
+  pd.DataFrame(data).to_csv(dataFilePath)
+
+fetListFeatureVectors("")
