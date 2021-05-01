@@ -57,7 +57,7 @@ def face_detection(filename, required_size=(160, 160)):
   print(face_array)
   return face_array
 
-def fetListFeatureVectors(folder):
+def getListFeatureVectors(folder):
   folder = 'data/Harry/'
   i = 1
   features = list()
@@ -85,4 +85,6 @@ def fetListFeatureVectors(folder):
 def saveFeatureInCSV(data, dataFilePath):
   pd.DataFrame(data).to_csv(dataFilePath)
 
-fetListFeatureVectors("")
+
+# gọi function để trích rút và lưu trữ vector đặc trưng vào file csv
+# getListFeatureVectors("")

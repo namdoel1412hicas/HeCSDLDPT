@@ -82,7 +82,7 @@ def getFeatureVector(img):
   for x, fr in zip(lbp[largeTF],freq[largeTF]):
       ax.text(x,fr, "{:6.0f}".format(x),color="magenta")
   ax.set_title("LBP histogram")
-  plt.show()
+  # plt.show()
   # trả về 
   return freq
 
