@@ -3,21 +3,25 @@
     <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head>
     <body>
         <div class="container">
-            <h1>Simple image search engine</h1>
+            <h1>Image search engine</h1>
             <form method="POST" enctype="multipart/form-data">
                 <input type="file" name="query_img"><br>
                 <input type="submit">
             </form>
-            <h2>Query:</h2>
-            {% if query_path %}
-            <img src="{{ query_path }}" width="300px">
-            {% endif %}
-            <h2>Results:</h2>
-            {% for score in scores %}
-            <figure style="float: left; margin-right: 20px; margin-bottom: 20px;">
-                <img src="{{ score }}" height="200px">
-            </figure>
-            {% endfor %}
+            <div style="flex-direction: row;">
+              <div style="display: inline-block;">
+                <h2>Query:</h2>
+                {% if query_path %}
+                <img src="{{ query_path }}" width="300px">
+                {% endif %}
+              </div>
+              <div style="display: inline-block; float: right;">
+                <h2>Result:</h2>
+                {% if score %}
+                <img src="{{ score }}" width="300px">
+                {% endif %}
+              </div>
+            </div>
         </div>
     </body>
 </html>

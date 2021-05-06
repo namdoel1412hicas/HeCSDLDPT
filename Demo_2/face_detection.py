@@ -58,7 +58,7 @@ def face_detection(filename, required_size=(160, 160)):
   return face_array
 
 def getListFeatureVectors(folder):
-  folder = 'data/Harry/'
+  # folder = 'data/Harry/'
   i = 1
   features = list()
   # enumerate files
@@ -79,7 +79,7 @@ def getListFeatureVectors(folder):
     features.append(featureVct)
     cv.imshow("harry", tmp_image)
     i += 1
-  saveFeatureInCSV(features, 'data/csvfiles/data_2.csv')
+  saveFeatureInCSV(features, 'data/csvfiles/data_3.csv')
   pyplot.show()
 
 def saveFeatureInCSV(data, dataFilePath):
@@ -87,4 +87,4 @@ def saveFeatureInCSV(data, dataFilePath):
 
 
 # gọi function để trích rút và lưu trữ vector đặc trưng vào file csv
-# getListFeatureVectors("")
+# getListFeatureVectors("static/storage/")

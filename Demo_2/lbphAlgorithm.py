@@ -13,6 +13,7 @@ import pandas as pd
 # from google.colab.patches import cv2_imshow        # converting the image to gray scale image    
 
 def Binarypattern(im):                               # creating function to get local binary pattern
+    # Trả về mảng các giá trị 0 với cùng dạng và loại với array đưa vào
     img= np.zeros_like(im)
     n=3                                              # taking kernel of size 3*3
     for i in range(0,im.shape[0]-n):                 # for image height

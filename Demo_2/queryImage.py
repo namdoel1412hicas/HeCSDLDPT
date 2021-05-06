@@ -13,7 +13,7 @@ import math
 app = Flask(__name__)
 
 def readImageFeature(queryEmbedding):
-  df = pd.read_csv('data/csvfiles/data_2.csv', header=None)
+  df = pd.read_csv('data/csvfiles/data_3.csv', header=None)
   # lấy column đầu tiên 
   first_column = df.columns[0]
   last_column = df.columns[257]
@@ -54,9 +54,10 @@ def readImageFeature(queryEmbedding):
 def index():
     if request.method == 'POST':
         file = request.files['query_img']
-        df = pd.read_csv('data/csvfiles/data_2.csv', header=None)
+        df = pd.read_csv('data/csvfiles/data_3.csv', header=None)
         first_column = df.columns[0]
         df = df.drop([first_column], axis=1)
+        df = df.iloc[1:]
         last_column = df.iloc[: , -1]
         # từ pandas -> thành array python
         # transfer cot cuoi thanh list
