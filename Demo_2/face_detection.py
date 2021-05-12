@@ -27,10 +27,10 @@ def face_detection(filename, required_size=(160, 160)):
   face_array = 1
 
   column, row, width, height = detected_faces[0]
-  print(column)
-  print(row) 
-  print(width)
-  print(height)
+  # print(column)
+  # print(row) 
+  # print(width)
+  # print(height)
   # disable rectangle
   # cv.rectangle(
   #     original_image,
@@ -67,6 +67,7 @@ def getListFeatureVectors(folder):
     path = folder + filename
     # get face
     face = face_detection(path)
+    print(filename)
     print(i, face.shape)
     # plot
     pyplot.subplot(2, 7, i)
@@ -79,7 +80,7 @@ def getListFeatureVectors(folder):
     features.append(featureVct)
     cv.imshow("harry", tmp_image)
     i += 1
-  saveFeatureInCSV(features, 'data/csvfiles/data_3.csv')
+  saveFeatureInCSV(features, 'data/csvfiles/data_4.csv')
   pyplot.show()
 
 def saveFeatureInCSV(data, dataFilePath):
@@ -87,4 +88,4 @@ def saveFeatureInCSV(data, dataFilePath):
 
 
 # gọi function để trích rút và lưu trữ vector đặc trưng vào file csv
-# getListFeatureVectors("static/storage/")
+getListFeatureVectors("static/storage/Images/")

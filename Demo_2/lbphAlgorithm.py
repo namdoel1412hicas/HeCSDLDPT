@@ -43,8 +43,8 @@ def getFeatureVector(img):
   # chuyển ảnh từ ma trận -> vector
   vectorLBP = imgLBP.flatten()               # for histogram using the vector form of image pixels
   #pd.DataFrame(vectorLBP).to_csv("data/csvfiles/harry_.csv")
-  print("Vector LBP")
-  print(vectorLBP)
+  # print("Vector LBP")
+  # print(vectorLBP)
   fig=plt.figure(figsize=(20,8))             #subplotting the gray, LBP and histogram 
   ax  = fig.add_subplot(1,3,1)
   # tmp_image = cv2.cvtColor(gray_img,cv2.COLOR_BGR2GRAY)
@@ -64,20 +64,21 @@ def getFeatureVector(img):
   199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228,
   229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253, 254, 255, 256]
   # space giúp chia khoảng giá trị trên Histogram
-  print('With manual value')
-  print(ax.hist(vectorLBP,bins=space)) # in ra giá trị của histogram
-  print('With bins value')
-  print(ax.hist(vectorLBP,bins=2**8)) # in ra giá trị của histogram
+  # ========
+  # print('With manual value')
+  # print(ax.hist(vectorLBP,bins=space)) # in ra giá trị của histogram
+  # print('With bins value')
+  # print(ax.hist(vectorLBP,bins=2**8)) # in ra giá trị của histogram
   freq, lbp, tmp = ax.hist(vectorLBP,bins=space, edgecolor='black')
   # freq là feature vector gồm 256 giá trị cần phải lưu
   ax.set_ylim(0,80000)
   lbp = lbp[:-1]
-  print('lbp \n')
-  print(lbp)
-  print('frequencies \n')
-  print(freq)
-  print('tmp \n')
-  print(tmp)
+  # print('lbp \n')
+  # print(lbp)
+  # print('frequencies \n')
+  # print(freq)
+  # print('tmp \n')
+  # print(tmp)
   ## print the LBP values when frequencies are high
   largeTF = freq > 5000
   for x, fr in zip(lbp[largeTF],freq[largeTF]):
