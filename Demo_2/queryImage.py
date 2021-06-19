@@ -4,7 +4,7 @@ from PIL import Image
 from flask import Flask, request, render_template
 from pathlib import Path
 from datetime import datetime
-from lbphAlgorithm import getFeatureVector
+from lbpAlgorithm import getFeatureVector
 from face_detection import face_detection
 import pandas as pd
 import cv2 as cv
@@ -12,8 +12,8 @@ import math
 
 app = Flask(__name__)
 
-def readImageFeature(queryEmbedding):
-  df = pd.read_csv('data/csvfiles/data_3.csv', header=None)
+def readImageFeature(queryEmbedding, option=-1):
+  df = pd.read_csv('data/csvfiles/database.csv', header=None)
   # lấy column đầu tiên 
   first_column = df.columns[0]
   last_column = df.columns[257]
@@ -26,6 +26,7 @@ def readImageFeature(queryEmbedding):
   # print(df)
   arr = df.to_numpy()
   print("\nArray vector feature\n")
+  print(option)
   print(arr)
   # xóa row đầu tiên
   #df = df.drop(index=df.index[0], axis=0, inplace=True)
@@ -41,11 +42,13 @@ def readImageFeature(queryEmbedding):
     res.append(abs(dist))
     if minn > abs(dist):
       minn = abs(dist)
-      index = i
+      if(i != option):
+        index = i
     i+=1
   #print(df)
   #print(minn)
   #print(index)
+  res.sort()
   return index
 
 
@@ -54,7 +57,7 @@ def readImageFeature(queryEmbedding):
 def index():
     if request.method == 'POST':
         file = request.files['query_img']
-        df = pd.read_csv('data/csvfiles/data_3.csv', header=None)
+        df = pd.read_csv('data/csvfiles/database.csv', header=None)
         first_column = df.columns[0]
         df = df.drop([first_column], axis=1)
         df = df.iloc[1:]
@@ -75,13 +78,17 @@ def index():
         print(query)
         print(last_column)
         resIndex = readImageFeature(query)
+        print(resIndex)
         print("\nResult path\n")
         print(last_column[resIndex])
-
-
+        resIndex_2 = readImageFeature(query, resIndex)
+        print("Two similarity: ")
+        print(resIndex)
+        print(resIndex_2)
         return render_template('index.html',
                                query_path=uploaded_img_path,
-                               score=last_column[resIndex])
+                               score_1=last_column[resIndex],
+                               score_2=last_column[resIndex_2])
     else:
         return render_template('index.html')
 

@@ -3,15 +3,16 @@ from numpy import asarray
 from PIL import Image
 from os import listdir
 from matplotlib import pyplot
-from lbphAlgorithm import getFeatureVector
+from lbpAlgorithm import getFeatureVector
 import pandas as pd
 import numpy
 
 def face_detection(filename, required_size=(160, 160)):
-  # Read image from your local file system
+  # read image from local file
   original_image = cv.imread(filename)
 
-  # Convert color image to grayscale for Viola-Jones
+  # convert color image to grayscale
+  # Để làm gì? 
   grayscale_image = cv.cvtColor(original_image, cv.COLOR_BGR2GRAY)
 
   # Load the classifier and create a cascade object for face detection
@@ -19,12 +20,20 @@ def face_detection(filename, required_size=(160, 160)):
 
   detected_faces = face_cascade.detectMultiScale(grayscale_image)
   # .....
-  # convrt BGR to RGB
+  # convert BGR to RGB
   original_image = cv.cvtColor(original_image, cv.COLOR_BGR2RGB)
   pixels = asarray(original_image)
 
   face = 1
   face_array = 1
+
+  print("All detected face")
+  numberOfFaces = len(detected_faces)
+  print(len(detected_faces))
+  # print(detected_faces)
+  if(numberOfFaces == 0):
+    print("Cannot find any faces in this image! Path: " + filename)
+    return []
 
   column, row, width, height = detected_faces[0]
   # print(column)
@@ -50,6 +59,7 @@ def face_detection(filename, required_size=(160, 160)):
   #     )
   x1, y1 = abs(column), abs(row)
   x2, y2 = column + width, row + height
+  # chọn vùng ảnh mặt trên hình ban đầu
   face = pixels[y1:y2, x1:x2]
   image = Image.fromarray(face)
   image = image.resize(required_size)
@@ -57,6 +67,7 @@ def face_detection(filename, required_size=(160, 160)):
   print(face_array)
   return face_array
 
+# init lưu trữ các vector đặc trưng
 def getListFeatureVectors(folder):
   # folder = 'data/Harry/'
   i = 1
@@ -70,22 +81,23 @@ def getListFeatureVectors(folder):
     print(filename)
     print(i, face.shape)
     # plot
-    pyplot.subplot(2, 7, i)
-    pyplot.axis('off')
+    # pyplot.subplot(2, 7, i)
+    # pyplot.axis('off')
     # khi chuyển sang bằng hàm asarray, ảnh sẽ có dạng BGR -> phải chuyển về RGB
-    pyplot.imshow(face)
+    # pyplot.imshow(face)
     tmp_image = cv.cvtColor(face, cv.COLOR_BGR2RGB)
     featureVct = getFeatureVector(tmp_image)
     featureVct = numpy.append(featureVct, path)
     features.append(featureVct)
     cv.imshow("harry", tmp_image)
     i += 1
-  saveFeatureInCSV(features, 'data/csvfiles/data_4.csv')
-  pyplot.show()
+  saveFeatureInCSV(features, 'data/csvfiles/database.csv')
+  # pyplot.show()
 
+# lưu các vector đặc trưng vào file csv
 def saveFeatureInCSV(data, dataFilePath):
   pd.DataFrame(data).to_csv(dataFilePath)
 
 
 # gọi function để trích rút và lưu trữ vector đặc trưng vào file csv
-getListFeatureVectors("static/storage/Images/")
+# getListFeatureVectors("static/storage/DB_Image/")

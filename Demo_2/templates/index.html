@@ -3,7 +3,7 @@
     <head><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></head>
     <body>
         <div class="container">
-            <h1>Image search engine</h1>
+            <h1>Human image search engine</h1>
             <form method="POST" enctype="multipart/form-data">
                 <input type="file" name="query_img"><br>
                 <input type="submit">
@@ -16,9 +16,17 @@
                 {% endif %}
               </div>
               <div style="display: inline-block; float: right;">
-                <h2>Result:</h2>
-                {% if score %}
-                <img src="{{ score }}" width="300px">
+                <h2>The most similar:</h2>
+                {% if score_1 %}
+                <img src="{{ score_1 }}" width="300px">
+                {% endif %}
+              </div>
+            </div>
+            <div>
+              <div style="display: inline-block; float: left;">
+                <h2>Second similar:</h2>
+                {% if score_2 %}
+                <img src="{{ score_2 }}" width="300px">
                 {% endif %}
               </div>
             </div>
